@@ -1,8 +1,15 @@
 import React, { Component } from 'react';
-import { nanoid } from 'nanoid';
-class Components extends Component{
-    
-    render(){
-    return (<><div key={nanoid()}>{this.props.children}</div></>)}
+import PropTypes from 'prop-types';
+class Components extends Component {
+  render() {
+    return (
+      <>
+        <div>{this.props.children}</div>
+      </>
+    );
+  }
 }
-export default Components
+export default Components;
+Components.propTypes = {
+  children: PropTypes.elementType,
+};

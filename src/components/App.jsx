@@ -58,7 +58,7 @@ export class App extends Component {
   render() {
     return (
       <div
-      key={nanoid()}
+      
         style={{
           fontFamily:"Monospace",
          
