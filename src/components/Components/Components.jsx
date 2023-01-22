@@ -11,5 +11,5 @@ class Components extends Component {
 }
 export default Components;
 Components.propTypes = {
-  children: PropTypes.elementType,
+  children: PropTypes.array,
 };

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { Input } from './SearchStyle';
 export class Search extends Component {
   searchUserName = e => {
+    this.setState({ [e.currentTarget.name]: e.currentTarget.value })
     const name = e.currentTarget.value;
     this.props.contacts(name);
   };
