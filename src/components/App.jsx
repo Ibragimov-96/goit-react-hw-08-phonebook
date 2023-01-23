@@ -12,7 +12,17 @@ export class App extends Component {
     filter: '',
     
   };
-
+  componentDidMount(){
+    const contacts = localStorage.getItem('contacts')
+    const parsedContact = JSON.parse(contacts)
+    
+    this.setState({contacts:parsedContact})
+  }
+componentDidUpdate(prevProps, prevState){
+  if(this.state.contacts !== prevState.contacts){
+  localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
+  }
+}
   addUser = data => {
    
     // repeatUser.map(user => {
