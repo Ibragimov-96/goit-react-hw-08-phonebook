@@ -44,7 +44,7 @@ componentDidUpdate(prevProps, prevState){
       }
     })
   }
-  filter = user => {
+  Userfilter = user => {
     this.setState({
       filter: user,
     });
@@ -79,7 +79,7 @@ componentDidUpdate(prevProps, prevState){
         <h1>Phonebook</h1>
         <Components>
           <Form addForm={this.addUser} />
-          <Search contacts={this.filter} />
+          <Search contacts={this.Userfilter} />
           <h3>Contacts</h3>
           <Contacts deleteContact={this.deleteUser}contact={this.search()} />
         </Components>
