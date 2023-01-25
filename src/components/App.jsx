@@ -15,8 +15,9 @@ export class App extends Component {
   componentDidMount(){
     const contacts = localStorage.getItem('contacts')
     const parsedContact = JSON.parse(contacts)
-    if(parsedContact){}
-    this.setState({contacts:parsedContact})
+    
+    if(parsedContact){this.setState({contacts:parsedContact})}
+    // 
   }
 componentDidUpdate(prevProps, prevState){
   if(this.state.contacts !== prevState.contacts){
@@ -25,11 +26,7 @@ componentDidUpdate(prevProps, prevState){
 }
   addUser = data => {
    
-    // repeatUser.map(user => {
-    //   if (user.name === data.name) {
-    //     return alert(user.name);
-    //   }
-    // });
+  
     if(this.state.contacts.find(item => item.name === data.name)){return alert(data.name+" уже есть")}
 
    
