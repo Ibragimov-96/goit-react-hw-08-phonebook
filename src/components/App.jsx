@@ -1,89 +1,76 @@
 // import { toHaveAccessibleDescription } from '@testing-library/jest-dom/dist/matchers';
-import React, { Component } from 'react';
+import React, { useState, useEffect } from 'react';
 import Form from './Form/Form';
 import { nanoid } from 'nanoid';
 import Components from './Components/Components';
 
 import { Contacts } from './Contacts/Contacts';
 import { Search } from './Search/Search';
-export class App extends Component {
-  state = {
-    contacts: [],
-    filter: '',
-    
-  };
-  componentDidMount(){
-    const contacts = localStorage.getItem('contacts')
-    const parsedContact = JSON.parse(contacts)
-    
-    if(parsedContact){this.setState({contacts:parsedContact})}
-    // 
-  }
-componentDidUpdate(prevProps, prevState){
-  if(this.state.contacts !== prevState.contacts){
-  localStorage.setItem('contacts', JSON.stringify(this.state.contacts))
-  }
-}
-  addUser = data => {
+export const App =()=>{
+ 
+const [contacts, setContats]=useState(()=>{return JSON.parse(localStorage.getItem('contacts'))||[]})
+const [filter, setFilter]=useState('')
+
+useEffect(()=>{
+  window.localStorage.setItem('contacts', JSON.stringify(contacts) )
+},[contacts])
+
+
+  
+  const addUser = data => {
    
   
-    if(this.state.contacts.find(item => item.name === data.name)){return alert(data.name+" уже есть")}
+    if(contacts.find(item => item.name === data.name)){return alert(data.name+" уже есть")}
 
    
     const newUser = { id: nanoid(), ...data };
-    this.setState(prevState => {
-      return { contacts: [...prevState.contacts, newUser] };
-    });
+    setContats([...contacts,newUser])
+    
   };
-  deleteUser = (id) =>{
-    this.setState((prevState)=>{
+ const  deleteUser = (id) =>{
+   
+      setContats(contacts.filter(
+        user=>user.id !==id))
      
-      return{
-        contacts:  prevState.contacts.filter(
-          user=>user.id !==id)
-      }
-    })
+    
   }
-  Userfilter = user => {
-    this.setState({
-      filter: user,
-    });
+  const Userfilter = user => {
+    setFilter(user)
+
   };
-  search = () => {
-    const filter = this.state.filter;
-    const contact = this.state.contacts;
-    if (!filter) {
+  const search = () => {
+    const filte = filter;
+    const contact = contacts;
+    if (!filte) {
       return contact;
     }
     return contact.filter(
       ({ name, number }) =>
-        name.toLowerCase().includes(filter.toLowerCase()) ||
-        number.toLowerCase().includes(filter.toLowerCase())
+        name.toLowerCase().includes(filte.toLowerCase()) ||
+        number.toLowerCase().includes(filte.toLowerCase())
     );
   };
-
-  render() {
-    return (
-      <div
-      
-        style={{
-          fontFamily:"Monospace",
-         
-        display:'grid',
-          justifyContent: 'center',
-          alignItems: 'center',
-          fontSize: 40,
-          color: '#010101',
-        }}
-      >
-        <h1>Phonebook</h1>
-        <Components>
-          <Form addForm={this.addUser} />
-          <Search contacts={this.Userfilter} />
-          <h3>Contacts</h3>
-          <Contacts deleteContact={this.deleteUser}contact={this.search()} />
-        </Components>
-      </div>
-    );
-  }
+  return (
+    <div
+    
+      style={{
+        fontFamily:"Monospace",
+       
+      display:'grid',
+        justifyContent: 'center',
+        alignItems: 'center',
+        fontSize: 40,
+        color: '#010101',
+      }}
+    >
+      <h1>Phonebook</h1>
+      <Components>
+        <Form addForm={addUser} />
+        <Search contacts={Userfilter} />
+        <h3>Contacts</h3>
+        <Contacts deleteContact={deleteUser}contact={search()} />
+      </Components>
+    </div>
+  )
+  
 }
