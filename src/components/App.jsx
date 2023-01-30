@@ -24,30 +24,29 @@ useEffect(()=>{
 
    
     const newUser = { id: nanoid(), ...data };
-    setContats([...contacts,newUser])
+    setContats(prevState => [...prevState, newUser])
     
   };
  const  deleteUser = (id) =>{
    
-      setContats(contacts.filter(
+      setContats(prevState=> prevState.filter(
         user=>user.id !==id))
      
     
   }
-  const Userfilter = user => {
+  const userFilter = user => {
     setFilter(user)
 
   };
   const search = () => {
-    const filte = filter;
-    const contact = contacts;
-    if (!filte) {
-      return contact;
+   
+    if (!filter) {
+      return contacts;
     }
-    return contact.filter(
+    return contacts.filter(
       ({ name, number }) =>
-        name.toLowerCase().includes(filte.toLowerCase()) ||
-        number.toLowerCase().includes(filte.toLowerCase())
+        name.toLowerCase().includes(filter.toLowerCase()) ||
+        number.toLowerCase().includes(filter.toLowerCase())
     );
   };
   return (
@@ -66,7 +65,7 @@ useEffect(()=>{
       <h1>Phonebook</h1>
       <Components>
         <Form addForm={addUser} />
-        <Search contacts={Userfilter} />
+        <Search contacts={userFilter} />
         <h3>Contacts</h3>
         <Contacts deleteContact={deleteUser}contact={search()} />
       </Components>
