@@ -6,6 +6,8 @@ const contactSlice = createSlice({
   },
   reducers: {
     addContact: (state, { payload }) => {
+      if(state.users.find(item => item.name === payload.name)){return alert(payload.name+" уже есть")}
+      
       state.users.push(payload);
     },
     deleteContact: (state, { payload }) => {
