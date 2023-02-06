@@ -18,7 +18,7 @@ export const App = () => {
 
   const addUser = data => {
     if (contacts.find(item => item.name === data.name)) {
-      return alert(data.name + ' уже есть');
+      return alert(data.name + 'есть');
     }
 
     const newUser = { id: nanoid(), ...data };
