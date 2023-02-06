@@ -1,21 +1,15 @@
-import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { useDispatch } from 'react-redux/es/exports';
 import { Input } from './SearchStyle';
-export class Search extends Component {
-  searchUserName = e => {
-  
-    const name = e.currentTarget.value;
-    this.props.contacts(name);
-  };
-  render() {
-    return (
-      <>
-        <h3>Search Contacts</h3>
-        <Input onChange={this.searchUserName} />
-      </>
-    );
-  }
-}
-Search.propTypes = {
-  contacts: PropTypes.func,
+
+import { contactFilter } from '../../redux/contact/filterSlice';
+
+export const Search = () => {
+  const dispatch = useDispatch();
+
+  return (
+    <>
+      <h3>Search Contacts</h3>
+      <Input onChange={e => dispatch(contactFilter(e.target.value))} />
+    </>
+  );
 };
