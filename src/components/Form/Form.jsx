@@ -18,8 +18,8 @@ const Form = () => {
     }
   };
 
-  const handleSubmit = e => {
-    e.preventDefault();
+  const handleSubmit = evt => {
+    evt.preventDefault();
     const user = {
       name,
       number,
