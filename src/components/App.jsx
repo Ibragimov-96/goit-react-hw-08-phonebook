@@ -9,6 +9,7 @@ import { Search } from './Search/Search';
 import { fetchContact } from 'redux/contact/contactOperations';
 import { getFilter, getUsers } from 'redux/contact/userSelector';
 
+
 export const App = () => {
   const user = useSelector(getUsers);
   const filter = useSelector(getFilter)

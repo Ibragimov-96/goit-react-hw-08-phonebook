@@ -24,15 +24,17 @@ const Form = () => {
       name,
       number,
     };
+    // eslint-disable-next-line array-callback-return
     users.map(users => {
-      if (users.name !== user.name) {
-        dispatch(addContact(user));
-        reset();
-      
+      if (users.name === user.name) {
+        return alert('Такой контакт уже существует');
       }
       
     });
-    return alert('Такой контакт уже существует');
+    dispatch(addContact(user));
+    reset();
+  
+  
   };
   const reset = () => {
     setName('');
