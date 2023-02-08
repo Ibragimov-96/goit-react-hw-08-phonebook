@@ -1,53 +1,50 @@
 // import { toHaveAccessibleDescription } from '@testing-library/jest-dom/dist/matchers';
-import React, { useState, useEffect } from 'react';
+import React, {useEffect } from 'react';
 import Form from './Form/Form';
-import { nanoid } from 'nanoid';
-import Components from './Components/Components';
 
+import Components from './Components/Components';
+import { useDispatch,useSelector } from 'react-redux';
 import { Contacts } from './Contacts/Contacts';
 import { Search } from './Search/Search';
+import { fetchContact } from 'redux/contact/contactOperations';
+import { getFilter, getUsers } from 'redux/contact/userSelector';
+
 export const App = () => {
-  const [contacts, setContats] = useState(() => {
-    return JSON.parse(localStorage.getItem('contacts')) || [];
-  });
-  const [filter, setFilter] = useState('');
+  const user = useSelector(getUsers);
+  const filter = useSelector(getFilter)
+  const dispatch = useDispatch()
+ 
+ 
 
   useEffect(() => {
-    window.localStorage.setItem('contacts', JSON.stringify(contacts));
-  }, [contacts]);
+    dispatch(fetchContact())
+  }, [ dispatch]);
 
-  const addUser = data => {
-    if (contacts.find(item => item.name === data.name)) {
-      return alert(data.name + 'есть');
-    }
-
-    const newUser = { id: nanoid(), ...data };
-    setContats(prevState => [...prevState, newUser]);
-  };
-  const deleteUser = id => {
-    setContats(prevState => prevState.filter(user => user.id !== id));
-  };
-  const userFilter = user => {
-    setFilter(user);
-  };
+ 
+  
+  // const userFilter = user => {
+  //   setFilter(user);
+  // };
   const search = () => {
     if (!filter) {
-      return contacts;
+      return user;
     }
-    return contacts.filter(
-      ({ name, number }) =>
-        name.toLowerCase().includes(filter.toLowerCase()) ||
-        number.toLowerCase().includes(filter.toLowerCase())
-    );
+    return user.filter(
+      ({ name}) =>
+        name.toLowerCase().includes(filter.toLowerCase())
+       
+    )
   };
   return (
     <div>
       <h1>Phonebook</h1>
       <Components>
-        <Form addForm={addUser} />
-        <Search contacts={userFilter} />
+        <Form  />
+        <Search />
         <h3>Contacts</h3>
-        <Contacts deleteContact={deleteUser} contact={search()} />
+        {user.length !== 0&&<Contacts contact={search()} />}
+   
+      
       </Components>
     </div>
   );

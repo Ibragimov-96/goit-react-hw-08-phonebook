@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
 import { Forma, ButtonAdd } from './FormStyle.js';
-import { useDispatch } from 'react-redux/es/exports.js';
-import { addContact } from 'redux/contact/contactSlice';
-import { nanoid } from 'nanoid';
+import { useDispatch, useSelector } from 'react-redux/es/exports.js';
+import { addContact } from 'redux/contact/contactOperations.js';
+import { getUsers } from 'redux/contact/userSelector';
+
 const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
+  const users = useSelector(getUsers);
+  console.log(users);
   const dispatch = useDispatch();
   const handleChange = e => {
     if (e.target.name === 'name') {
@@ -20,11 +23,16 @@ const Form = () => {
     const user = {
       name,
       number,
-      id: nanoid(),
     };
-    dispatch(addContact(user));
-
-    reset();
+    users.map(users => {
+      if (users.name !== user.name) {
+        dispatch(addContact(user));
+        reset();
+      
+      }
+      
+    });
+    return alert('Такой контакт уже существует');
   };
   const reset = () => {
     setName('');
@@ -64,4 +72,3 @@ const Form = () => {
   );
 };
 export default Form;
-
