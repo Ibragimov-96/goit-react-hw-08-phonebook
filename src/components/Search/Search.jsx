@@ -3,7 +3,7 @@ import { Input } from './SearchStyle';
 
 import { contactFilter } from '../../redux/contact/filterSlice';
 
-export const Search = ({search}) => {
+export const Search = () => {
   const dispatch = useDispatch();
 
   return (

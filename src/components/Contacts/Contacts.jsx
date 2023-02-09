@@ -1,7 +1,7 @@
 import { List, Btn } from './ContactStyle';
 import {  useDispatch } from 'react-redux/es/exports';
 import { deleteContact } from 'redux/contact/contactOperations';
-
+import PropTypes from 'prop-types';
 
 export const Contacts = ({contact}) => {
   
@@ -25,3 +25,6 @@ export const Contacts = ({contact}) => {
     </>
   );
 };
+Contacts.propTypes = {
+  contact:PropTypes.array
+}

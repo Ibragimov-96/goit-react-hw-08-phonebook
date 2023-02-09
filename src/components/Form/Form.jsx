@@ -8,7 +8,7 @@ const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
   const users = useSelector(getUsers);
-  console.log(users);
+ 
   const dispatch = useDispatch();
   const handleChange = e => {
     if (e.target.name === 'name') {
@@ -25,17 +25,18 @@ const Form = () => {
       number,
     };
     // eslint-disable-next-line array-callback-return
-    users.map(users => {
-      if (users.name === user.name) {
-        return alert('Такой контакт уже существует');
-      }
-      
-    });
-    dispatch(addContact(user));
-    reset();
+    const find = users.find(item=>item.name===user.name)
+    if(find){
+      return alert('Уже есть')
+    }
+   
+      dispatch(addContact(user));
+      reset();
+    
+    };
+   
   
   
-  };
   const reset = () => {
     setName('');
     setNumber('');
