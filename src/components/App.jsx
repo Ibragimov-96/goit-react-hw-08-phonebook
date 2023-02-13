@@ -8,7 +8,7 @@ import { useDispatch,useSelector } from 'react-redux';
 
 import { fetchContact } from 'redux/contact/contactOperations';
 import {getToken } from 'redux/contact/userSelector';
-import Navigate  from './Navigate/navigate';
+
 import { RegisterForm } from './RegisterForm/Register';
 import { LoginForm } from './LogIn/LogIn';
 import { Layout } from './Components/Layout/Layout';
@@ -39,7 +39,7 @@ export const App = () => {
           <Route path='/contacts' element={<PhoneContacts/>}/>
           <Route path='/register' element={<RegisterForm/>}/>
           <Route path='/logIn' element={<LoginForm/>}/>
-          <Route path="*" element={<Navigate />} />
+          <Route path="*" element={<Home />} />
           </Route>
         </Routes>
       
