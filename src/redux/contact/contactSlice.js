@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContact,logIn, logOut, deleteContact } from './contactOperations';
+import { fetchContact, deleteContact } from './contactOperations';
+import { logIn,logOut,register } from 'redux/UserApi/UserApi';
 
 const contactSlice = createSlice({
   name: 'user',
@@ -26,7 +27,20 @@ const contactSlice = createSlice({
       })
       .addCase(fetchContact.rejected, (state,{payload})=>{
         
-        state.error = null
+        state.error = payload
+       
+      })
+      .addCase(register.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(register.fulfilled, (state, { payload }) => {
+        state.user.name = payload.user.name
+        state.user.email = payload.user.email
+        state.token = payload.token
+      })
+      .addCase(register.rejected, (state,{payload})=>{
+        
+        state.error = payload
        
       })
       .addCase(logIn.pending, state => {
@@ -39,7 +53,7 @@ const contactSlice = createSlice({
       })
       .addCase(logIn.rejected, (state,{payload})=>{
         
-        state.error = null
+        state.error = payload
        
       })
       .addCase(logOut.pending, state => {
@@ -52,7 +66,7 @@ const contactSlice = createSlice({
         state.token = null
       }).addCase(logOut.rejected, (state,{payload})=>{
         
-        state.error = null
+        state.error = payload
        
       })
       .addCase(deleteContact.pending, state => {
@@ -64,7 +78,7 @@ const contactSlice = createSlice({
       })
       .addCase(deleteContact.rejected, (state,{payload})=>{
         
-        state.error = null
+        state.error = payload
        
       })
   },

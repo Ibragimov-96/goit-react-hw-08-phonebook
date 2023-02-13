@@ -3,7 +3,7 @@ import { Forma, ButtonAdd } from './FormStyle.js';
 import { useDispatch, useSelector } from 'react-redux/es/exports.js';
 
 import { getContact } from 'redux/contact/userSelector';
-import { NewContact } from 'redux/contact/contactOperations.js';
+import { newContact } from 'redux/contact/contactOperations.js';
 import { getToken } from 'redux/contact/userSelector';
 const Form = () => {
   const [name, setName] = useState('');
@@ -31,7 +31,7 @@ const Form = () => {
         return alert('Уже есть')
       }
      
-        dispatch(NewContact(user));
+        dispatch(newContact(user));
         reset();
       
     }else{

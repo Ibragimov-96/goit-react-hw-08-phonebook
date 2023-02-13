@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { register } from 'redux/contact/contactOperations';
+import { register } from 'redux/UserApi/UserApi'; 
 import { Div } from './RegisterStyle';
 
 export const RegisterForm = () => {

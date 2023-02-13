@@ -1,6 +1,6 @@
 import { List, Btn,Div } from './ContactStyle';
 import {  useDispatch,} from 'react-redux/es/exports';
-import { deleteContact } from 'redux/contact/contactOperations';
+import { deleteContact } from 'redux/contact/contactOperations'; 
 import PropTypes from 'prop-types';
 
 

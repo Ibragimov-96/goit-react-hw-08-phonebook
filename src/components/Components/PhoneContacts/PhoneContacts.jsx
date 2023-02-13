@@ -1,6 +1,6 @@
 import Form from '../../Form/Form';
 import Components from '../Components';
-import { Contacts } from '../../Contacts/Contacts';
+import { Contacts } from '../../../pages/Contacts/Contacts';
 import { Search } from '../../Search/Search';
 import { useDispatch,useSelector } from 'react-redux';
 import React, {useEffect } from 'react';

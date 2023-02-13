@@ -1,5 +1,5 @@
 import { useDispatch, } from 'react-redux';
-import { logIn } from 'redux/contact/contactOperations';
+import { logIn } from 'redux/UserApi/UserApi'; 
 import { useNavigate } from 'react-router-dom';
 
 import { Div,} from './LogInStyled';

@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux"
-import { logOut } from "redux/contact/contactOperations"
+import { logOut } from "redux/UserApi/UserApi"; 
 import { useNavigate } from 'react-router-dom';
 import { getEmail } from "redux/contact/userSelector";
 import { useSelector } from "react-redux";
