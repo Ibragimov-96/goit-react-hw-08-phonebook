@@ -20,6 +20,7 @@ const setAuthHeader = token => {
        
         return res.data;
       } catch (error) {console.log(error)
+        alert('Проверте введенные данные')
         return thunkAPI.rejectWithValue(error.message);
       }
     }
