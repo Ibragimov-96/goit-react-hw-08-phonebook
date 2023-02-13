@@ -1,17 +1,17 @@
-import { List, Btn } from './ContactStyle';
-import {  useDispatch } from 'react-redux/es/exports';
+import { List, Btn,Div } from './ContactStyle';
+import {  useDispatch,} from 'react-redux/es/exports';
 import { deleteContact } from 'redux/contact/contactOperations';
 import PropTypes from 'prop-types';
 
-export const Contacts = ({contact}) => {
-  
 
+export const Contacts = ({contact}) => {
+ 
 
 
   const dispatch = useDispatch();
 
   return (
-    <>
+    <Div>
       <ul>
         {contact.map(user => {
           return (
@@ -22,7 +22,7 @@ export const Contacts = ({contact}) => {
           );
         })}
       </ul>
-    </>
+    </Div>
   );
 };
 Contacts.propTypes = {

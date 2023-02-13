@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { Forma, ButtonAdd } from './FormStyle.js';
 import { useDispatch, useSelector } from 'react-redux/es/exports.js';
-import { addContact } from 'redux/contact/contactOperations.js';
-import { getUsers } from 'redux/contact/userSelector';
 
+import { getContact } from 'redux/contact/userSelector';
+import { NewContact } from 'redux/contact/contactOperations.js';
+import { getToken } from 'redux/contact/userSelector';
 const Form = () => {
   const [name, setName] = useState('');
   const [number, setNumber] = useState('');
-  const users = useSelector(getUsers);
- 
+  const users = useSelector(getContact);
+ const token = useSelector(getToken)
   const dispatch = useDispatch();
   const handleChange = e => {
     if (e.target.name === 'name') {
@@ -21,17 +22,22 @@ const Form = () => {
   const handleSubmit = evt => {
     evt.preventDefault();
     const user = {
-      name,
-      number,
+      name: name,
+      number: number,
     };
-    // eslint-disable-next-line array-callback-return
-    const find = users.find(item=>item.name===user.name)
-    if(find){
-      return alert('Уже есть')
+    if(token){
+      const find = users.find(item=>item.name===user.name)
+      if(find){
+        return alert('Уже есть')
+      }
+     
+        dispatch(NewContact(user));
+        reset();
+      
+    }else{
+      return alert('Пожалуйста авторизируйтесь')
     }
    
-      dispatch(addContact(user));
-      reset();
     
     };
    

@@ -1,13 +1,19 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContact, addContact, deleteContact } from './contactOperations';
+import { fetchContact,logIn, logOut,addContact, deleteContact } from './contactOperations';
+
 const contactSlice = createSlice({
   name: 'user',
   initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
+    contact:[],
+    user: {name:null, email:null},
+    token: null,
+    filter:'',
+    isLoading:false
   },
-
+  reducers: {
+    contactFilter: (state,  {payload} ) => {state.filter = payload}
+    
+  },
   extraReducers: builder => {
     builder
       .addCase(fetchContact.pending, state => {
@@ -16,35 +22,53 @@ const contactSlice = createSlice({
       .addCase(fetchContact.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.error = null;
-    
-        state.items = [...payload];
+        state.contact = payload;
       })
-      .addCase(fetchContact.rejected, (state, { payload }) => {
-        state.error = payload;
+      .addCase(fetchContact.rejected, (state,{payload})=>{
+        
+        state.error = null
+       
       })
-      .addCase(addContact.pending, state => {
+      .addCase(logIn.pending, state => {
         state.isLoading = true;
       })
-      .addCase(addContact.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = null;
-        state.items.push(payload);
+      .addCase(logIn.fulfilled, (state,{payload})=>{
+        state.user.name = payload.user.name
+        state.user.email = payload.user.email
+        state.token = payload.token
       })
-      .addCase(addContact.rejected, (state, { payload }) => {
-        state.error = payload;
+      .addCase(logIn.rejected, (state,{payload})=>{
+        
+        state.error = null
+       
+      })
+      .addCase(logOut.pending, state => {
+        state.isLoading = true;
+      })
+      .addCase(logOut.fulfilled, (state,{payload})=>{
+        state.user.name = null
+        state.user.email = null
+        state.contact = []
+        state.token = null
+      }).addCase(logOut.rejected, (state,{payload})=>{
+        
+        state.error = null
+       
       })
       .addCase(deleteContact.pending, state => {
         state.isLoading = true;
       })
-      .addCase(deleteContact.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = null;
-        state.items=state.items.filter(contact=> contact.id !== payload.id);
+      .addCase(deleteContact.fulfilled, (state,{payload})=>{
+        
+        state.contact = state.contact.filter(contacts => contacts.id !== payload.id)
       })
-      .addCase(deleteContact.rejected, (state, { payload }) => {
-        state.error = payload;
-      });
+      .addCase(deleteContact.rejected, (state,{payload})=>{
+        
+        state.error = null
+       
+      })
   },
 });
 
 export default contactSlice.reducer;
+export const {contactFilter}= contactSlice.actions

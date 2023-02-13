@@ -1,33 +1,39 @@
-// import { toHaveAccessibleDescription } from '@testing-library/jest-dom/dist/matchers';
+
 import React, {useEffect } from 'react';
 import Form from './Form/Form';
-
+import { Route, Routes } from 'react-router-dom';
 import Components from './Components/Components';
 import { useDispatch,useSelector } from 'react-redux';
 import { Contacts } from './Contacts/Contacts';
 import { Search } from './Search/Search';
 import { fetchContact } from 'redux/contact/contactOperations';
-import { getFilter, getUsers } from 'redux/contact/userSelector';
-
-
+import { getFilter, getContact,getToken } from 'redux/contact/userSelector';
+import Navigate  from './Navigate/navigate';
+import { RegisterForm } from './RegisterForm/Register';
+import { LoginForm } from './LogIn/LogIn';
+import { Layout } from './Components/Layout/Layout';
+import { PhoneContacts } from './Components/PhoneContacts/PhoneContacts';
+import { Home } from '../components/Components/Home/Home';
+import { Outlet } from "react-router-dom"
 export const App = () => {
-  const user = useSelector(getUsers);
+  const user = useSelector(getContact);
   const filter = useSelector(getFilter)
+  const token = useSelector(getToken)
   const dispatch = useDispatch()
  
  
 
   useEffect(() => {
+    token&&
     dispatch(fetchContact())
-  }, [ dispatch]);
+  }, [dispatch, token]);
 
  
   
-  // const userFilter = user => {
-  //   setFilter(user);
-  // };
+ 
   const search = () => {
     if (!filter) {
+      
       return user;
     }
     return user.filter(
@@ -38,15 +44,17 @@ export const App = () => {
   };
   return (
     <div>
-      <h1>Phonebook</h1>
-      <Components>
-        <Form  />
-        <Search />
-        <h3>Contacts</h3>
-        {user.length !== 0&&<Contacts contact={search()} />}
-   
+     
+        <Routes>
+          <Route path="/" element={<Layout/>}>
+          <Route index element={<Home/>} />
+          <Route path='/contacts' element={<PhoneContacts/>}/>
+          <Route path='/register' element={<RegisterForm/>}/>
+          <Route path='/logIn' element={<LoginForm/>}/>
+          <Route path="*" element={<Navigate />} />
+          </Route>
+        </Routes>
       
-      </Components>
     </div>
   );
 };

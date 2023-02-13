@@ -11,3 +11,6 @@ padding: 10px;
     border: none;
     border-radius: 20px;
 `
+export const Div=styled.div`
+
+`
