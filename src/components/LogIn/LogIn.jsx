@@ -1,13 +1,13 @@
 import { useDispatch, } from 'react-redux';
 import { logIn } from 'redux/contact/contactOperations';
-
+import { useNavigate } from 'react-router-dom';
 
 import { Div,} from './LogInStyled';
 
 
 export const LoginForm = () => {
   const dispatch = useDispatch();
-  
+  const navigate = useNavigate()
 
   const handleSubmit = e => {
     e.preventDefault();
@@ -17,7 +17,7 @@ export const LoginForm = () => {
         email: form.elements.email.value,
         password: form.elements.password.value,
       })
-    );
+    ).unwrap().then(()=>{navigate('/contacts')});
     form.reset();
   };
 

@@ -3,6 +3,7 @@ import { logOut } from "redux/contact/contactOperations"
 import { useNavigate } from 'react-router-dom';
 import { getEmail } from "redux/contact/userSelector";
 import { useSelector } from "react-redux";
+import { Div,Btn} from "./userStyle";
 export const UserMenu = ()=>{
     const dispatch = useDispatch()
     const navigate = useNavigate()
@@ -11,9 +12,9 @@ export const UserMenu = ()=>{
         dispatch(logOut()).unwrap().then(()=>{navigate('/')})
       }
     return(
-<div>
-    <p>{email}</p>
-    <button type="button" onClick={handellogOut}>
+<Div>
+    <h3>{email}</h3>
+    <Btn type="button" onClick={handellogOut}>
       Log Out
-    </button>
-  </div>)}
+    </Btn>
+  </Div>)}

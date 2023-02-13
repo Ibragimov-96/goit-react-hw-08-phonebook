@@ -1,6 +1,6 @@
-import {Link} from "react-router-dom";
-import { Outlet } from "react-router-dom"
 
+import { Outlet } from "react-router-dom"
+import { StyleLink,Div,Container } from "./StyleLyout";
 
 import { useSelector } from "react-redux";
 import { getToken } from "redux/contact/userSelector";
@@ -9,12 +9,11 @@ import { UserMenu } from "../UsreMenu/UserMenu";
 
 export const Layout =()=>{
     const token = useSelector(getToken)
-    return( <div>
+    return( <Container><Div>
        
-        <Link to='/contacts'>PhoneBook</Link>
+        <StyleLink to='/contacts'>PhoneBook</StyleLink>
        {token?<UserMenu/>:<Navigate/>}
         
-    
-        <Outlet/>
-    </div>)
+        
+    </Div><Outlet/></Container>)
 }

@@ -1,3 +1,3 @@
 export const Home =()=>{
-    return (<h1>welcome</h1>)
+    return (<h1>Welcome Phonebook</h1>)
 }
