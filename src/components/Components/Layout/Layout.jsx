@@ -1,7 +1,7 @@
 import {Link} from "react-router-dom";
 import { Outlet } from "react-router-dom"
 
-import { Nav,Div } from '../../Navigate/NavigateStyle';
+
 import { useSelector } from "react-redux";
 import { getToken } from "redux/contact/userSelector";
 import Navigate from '../../Navigate/navigate'

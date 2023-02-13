@@ -1,18 +1,14 @@
 import { useDispatch, } from 'react-redux';
 import { logIn } from 'redux/contact/contactOperations';
-import { logOut } from 'redux/contact/contactOperations';
-import { useSelector } from 'react-redux';
-import { getToken,getUsers } from 'redux/contact/userSelector';
-import { Div,UserName,Btn } from './LogInStyled';
-import { useNavigate } from 'react-router-dom';
-import { UserMenu } from 'components/Components/UsreMenu/UserMenu';
+
+
+import { Div,} from './LogInStyled';
+
+
 export const LoginForm = () => {
   const dispatch = useDispatch();
   
-  const navigate = useNavigate()
-  const token = useSelector(getToken);
-  const name = useSelector(getUsers)
-  
+
   const handleSubmit = e => {
     e.preventDefault();
     const form = e.currentTarget;
